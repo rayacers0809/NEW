@@ -12,9 +12,9 @@ export default async function handler(req, res) {
   }));
 
   const payload = {
-    content: "📌 **새로운 DOGE 스태프 지원서 도착!**",
+    content: "📌 **새로운 DOGE 뉴비도우미 지원서 도착!**",
     embeds: [{
-      title: "🐾 DOGE 스태프 지원서",
+      title: "🐾 DOGE 뉴비도우미 지원서",
       color: 0x8e2de2,
       fields,
       footer: { text: "DOGE 서버 지원 시스템" },
