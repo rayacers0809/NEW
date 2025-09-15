@@ -22,17 +22,23 @@ export default async function handler(req, res) {
     }]
   };
 
-  // ✅ 환경변수에서 불러오기
   const WEBHOOK_URL = process.env.DISCORD_WEBHOOK;
 
   try {
-    await fetch(WEBHOOK_URL, {
+    const response = await fetch(WEBHOOK_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
     });
-    res.status(200).json({ ok: true });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Discord Error ${response.status}: ${errorText}`);
+    }
+
+    res.status(200).json({ ok: true, message: "Webhook 전송 성공 ✅" });
   } catch (err) {
+    console.error("❌ Webhook Error:", err.message);
     res.status(500).json({ error: "Webhook 전송 실패", details: err.message });
   }
 }
